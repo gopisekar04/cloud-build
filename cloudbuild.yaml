@@ -1,0 +1,36 @@
+steps:
+  # Step 1: Install dependencies
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+    id: 'install'
+
+  # Step 2: Run tests (waits for install)
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['test']
+    id: 'test'
+    waitFor: ['install']
+  
+  # Step 3: Build the Docker image (waits for tests to pass)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', 
+      '-t', 'asia-south1-docker.pkg.dev/gcp-practice-491215/cloud-build-test-repo/hello-world:latest', 
+      '.'
+    ]
+    id: 'build-image'
+    waitFor: ['test']
+
+  # Step 4: Push the image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push', 
+    'asia-south1-docker.pkg.dev/gcp-practice-491215/cloud-build-test-repo/hello-world:latest'
+    ]
+    id: 'push-image'
+    waitFor: ['build-image']
+
+  # Log the images built by this pipeline
+images:
+  - 'us-central1-docker.pkg.dev/your-gcp-project-id/your-repo-name/hello-world:latest'
+
+timeout: '600s'

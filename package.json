@@ -1,0 +1,17 @@
+{
+  "name": "cloud-build",
+  "version": "1.0.0",
+  "description": "Simple Node.js app for testing GCP Cloud Build",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Running tests... Passthrough!\" && exit 0",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
