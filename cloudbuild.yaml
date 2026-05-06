@@ -33,4 +33,8 @@ steps:
 images:
   - 'us-central1-docker.pkg.dev/your-gcp-project-id/your-repo-name/hello-world:latest'
 
+# ADD THIS BLOCK TO FIX THE ERROR:
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 timeout: '600s'
